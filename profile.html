@@ -1,1 +1,21 @@
+<div id="profileInfo"></div>
+<button id="sendFriendBtn">Send Friend Request</button>
+<script>
+const userId = "CURRENT_USER_UID"; // Logged in user
+const profileId = "VIEWED_PROFILE_UID"; // Profile being viewed
 
+// Load profile info
+db.collection("users").doc(profileId).get()
+  .then(doc => {
+    const user = doc.data();
+    document.getElementById("profileInfo").innerHTML = `<h3>${user.name}</h3>`;
+  });
+
+// Send friend request
+document.getElementById("sendFriendBtn").addEventListener("click", () => {
+  db.collection("users").doc(profileId).update({
+    friendRequests: firebase.firestore.FieldValue.arrayUnion(userId)
+  });
+  alert("Friend Request Sent");
+});
+</script>
