@@ -1,1 +1,21 @@
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-storage.js"></script>
 
+<script>
+  const firebaseConfig = {
+    apiKey: "YOUR_API_KEY",
+    authDomain: "Arafat-Chat.firebaseapp.com",
+    projectId: "Arafat-Chat",
+    storageBucket: "Arafat-Chat.appspot.com",
+    messagingSenderId: "XXXX",
+    appId: "XXXX"
+  };
+
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+  const db = firebase.firestore();
+  const storage = firebase.storage();
+</script>
