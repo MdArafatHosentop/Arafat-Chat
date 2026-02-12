@@ -1,4 +1,3 @@
-// firebaseConfig.js
 export const firebaseConfig = {
 apiKey: "AIzaSyDurKi9mAz7dF6IVWY_LkgF19lj-NSt7uQ",
 authDomain: "arafat-chat.firebaseapp.com",
