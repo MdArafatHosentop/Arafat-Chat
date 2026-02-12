@@ -1,23 +1,40 @@
-<div id="posts"></div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Arafat-Chat Feed</title>
+</head>
+<body>
+  <h2>Feed</h2>
+  <div id="posts"></div>
 
-<script>
-function loadPosts() {
-  db.collection("posts").orderBy("timestamp", "desc")
-    .onSnapshot(snapshot => {
-      const postsDiv = document.getElementById("posts");
-      postsDiv.innerHTML = ""; // Clear old posts
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
+    import { getFirestore, collection, query, orderBy, onSnapshot } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDurKi9mAz7dF6IVWY_LkgF19lj-NSt7uQ",
+      authDomain: "arafat-chat.firebaseapp.com",
+      projectId: "arafat-chat",
+      storageBucket: "arafat-chat.firebasestorage.app",
+      messagingSenderId: "793298740456",
+      appId: "1:793298740456:web:90dac5adeab37d4ce8955d",
+      measurementId: "G-DQP3BYWPCH"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    const postsDiv = document.getElementById("posts");
+
+    const q = query(collection(db, "posts"), orderBy("timestamp", "desc"));
+    onSnapshot(q, (snapshot) => {
+      postsDiv.innerHTML = "";
       snapshot.forEach(doc => {
         const post = doc.data();
-        postsDiv.innerHTML += `
-          <div>
-            <p>${post.text}</p>
-            ${post.imageURL ? `<img src="${post.imageURL}" width="200"/>` : ""}
-          </div>
-        `;
+        postsDiv.innerHTML += `<div><p>${post.text}</p></div>`;
       });
     });
-}
-
-// Call on page load
-loadPosts();
-</script>
+  </script>
+</body>
+</html>
