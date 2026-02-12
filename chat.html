@@ -1,1 +1,35 @@
+<div id="chatBox"></div>
+<input type="text" id="msgInput"/>
+<button id="sendBtn">Send</button>
 
+<script>
+const currentUserId = "CURRENT_USER_UID";
+const friendId = "FRIEND_UID";
+
+// Real-time listener
+db.collection("messages")
+  .orderBy("timestamp")
+  .onSnapshot(snapshot => {
+    const chatBox = document.getElementById("chatBox");
+    chatBox.innerHTML = "";
+    snapshot.forEach(doc => {
+      const msg = doc.data();
+      if((msg.senderId === currentUserId && msg.receiverId === friendId) ||
+         (msg.senderId === friendId && msg.receiverId === currentUserId)) {
+           chatBox.innerHTML += `<p><b>${msg.senderId === currentUserId ? "Me" : "Friend"}:</b> ${msg.message}</p>`;
+      }
+    });
+  });
+
+// Send message
+document.getElementById("sendBtn").addEventListener("click", () => {
+  const message = document.getElementById("msgInput").value;
+  db.collection("messages").add({
+    senderId: currentUserId,
+    receiverId: friendId,
+    message: message,
+    timestamp: firebase.firestore.FieldValue.serverTimestamp()
+  });
+  document.getElementById("msgInput").value = "";
+});
+</script>
