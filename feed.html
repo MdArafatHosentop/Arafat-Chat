@@ -1,1 +1,23 @@
+<div id="posts"></div>
 
+<script>
+function loadPosts() {
+  db.collection("posts").orderBy("timestamp", "desc")
+    .onSnapshot(snapshot => {
+      const postsDiv = document.getElementById("posts");
+      postsDiv.innerHTML = ""; // Clear old posts
+      snapshot.forEach(doc => {
+        const post = doc.data();
+        postsDiv.innerHTML += `
+          <div>
+            <p>${post.text}</p>
+            ${post.imageURL ? `<img src="${post.imageURL}" width="200"/>` : ""}
+          </div>
+        `;
+      });
+    });
+}
+
+// Call on page load
+loadPosts();
+</script>
