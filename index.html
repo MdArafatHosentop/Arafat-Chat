@@ -37,4 +37,21 @@ signInWithEmailAndPassword(auth, email, password)
 });
 </script>
 </body>
+  <script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
+import { getFirestore, collection, query, orderBy, limit, onSnapshot, serverTimestamp, addDoc } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDurKi9mAz7dF6IVWY_LkgF19lj-NSt7uQ",
+  authDomain: "arafat-chat.firebaseapp.com",
+  projectId: "arafat-chat",
+  storageBucket: "arafat-chat.firebasestorage.app",
+  messagingSenderId: "793298740456",
+  appId: "1:793298740456:web:90dac5adeab37d4ce8955d",
+  measurementId: "G-DQP3BYWPCH"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+</script>
 </html>
